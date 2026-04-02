@@ -1,0 +1,6 @@
+[
+  { "min": 10, "label": "Inizio 🚀" },
+  { "min": 100, "label": "Attivo 💪" },
+  { "min": 300, "label": "Equilibrato ⚖️" },
+  { "min": 500, "label": "Zen 🧘" }
+]

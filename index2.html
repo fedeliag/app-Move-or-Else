@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Tracker App</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <h1>BalanceXP</h1>
+    <p id="points">0 XP</p>
+  </header>
+
+  <!-- SESSION CARD -->
+  <section class="card">
+
+    <h2>Nuova Sessione</h2>
+
+    <select id="type">
+        <option value="movement">Movimento</option>
+        <option value="device">Dispositivo</option>
+    </select>
+    <select id="category"></select>
+    <select id="emotion"></select>
+    <select id="toneSelect"></select>
+
+    <div class="buttons">
+      <button id="startBtn">▶</button>
+      <button id="stopBtn">■</button>
+    </div>
+
+    <p id="stato">Fermo</p>
+    <p id="message"></p>
+
+  </section>
+
+  <!-- STATS -->
+  <section class="card stats">
+    <h2>Statistiche</h2>
+    <div class="stat-grid">
+      <div>
+        <span id="moveTime">0</span>
+        <small>Movimento</small>
+      </div>
+      <div>
+        <span id="deviceTime">0</span>
+        <small>Dispositivo</small>
+      </div>
+      <div>
+        <span id="topEmotion">-</span>
+        <small>Top Emozione</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- BADGE -->
+  <section class="card">
+    <h2>Badge</h2>
+    <ul id="badgeList"></ul>
+  </section>
+
+  <!-- GRAFICO -->
+  <section class="card">
+    <canvas id="chart"></canvas>
+  </section>
+
+  <!-- SESSION LIST -->
+  <section class="card">
+    <h2>Sessioni</h2>
+    <ul id="sessionList"></ul>
+  </section>
+
+</div>
+
+<script src="app2.js"></script>
+</body>
+</html>

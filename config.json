@@ -1,0 +1,7 @@
+{
+  "startXP": 0,
+  "movementMultiplier": 1,
+  "devicePenalty": 1,
+  "tones": ["neutral", "ironic", "dark"],
+  "defaultTone": "neutral"
+}
