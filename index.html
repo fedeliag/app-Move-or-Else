@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Tracker App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Tracker Attività</h1>
+
+<section>
+  <h2>Nuova Sessione</h2>
+
+  <select id="type">
+    <option value="movement">Movimento</option>
+    <option value="device">Dispositivo</option>
+  </select>
+
+  <button id="startBtn">Start</button>
+  <button id="stopBtn">Stop</button>
+
+  <p id="status">Fermo</p>
+</section>
+
+<section>
+  <h2>Punti Totali</h2>
+  <p id="points">0</p>
+</section>
+
+<section>
+  <h2>Sessioni</h2>
+  <ul id="sessionList"></ul>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>

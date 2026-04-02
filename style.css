@@ -1,0 +1,21 @@
+body {
+  font-family: Arial;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+button {
+  padding: 10px;
+  margin: 5px;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+}
