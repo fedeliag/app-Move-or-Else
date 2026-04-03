@@ -84,7 +84,6 @@ function populateTone() {
 }
 
 function populateCategories() {
-  
   categorySelect.innerHTML = "";
   const type = String(typeSelect.value || "movement");
   const list = categoriesData?.[type] || [];
@@ -107,7 +106,7 @@ function populateEmotions() {
   emotionsData.forEach(e => {
     const option = document.createElement("option");
     option.value = e.id;
-    option.textContent = e.label;
+    option.textContent = e.label; // ✅ emoji visibile
     emotionSelect.appendChild(option);
   });
 }
@@ -116,6 +115,12 @@ function populateEmotions() {
 // =========================
 // LOGICA
 // =========================
+function isToday(dateStr) {
+  const d = new Date(dateStr);
+  const today = new Date();
+
+  return d.toDateString() === today.toDateString();
+}
 
 function calculatePoints() {
   let points = 0;
@@ -148,6 +153,14 @@ function getBadges(points) {
     .map(b => b.label);
 }
 
+function setEmotion(index, emotionId) {
+  const emotionObj = emotionsData.find(e => e.id === emotionId);
+  if (!emotionObj) return;
+  sessions[index].emotion = emotionObj.label; // ✅ SEMPRE label
+  localStorage.setItem("sessions", JSON.stringify(sessions));
+  updateUI();
+}
+
 
 // =========================
 // STATS
@@ -162,18 +175,22 @@ function calculateStats() {
     if (s.type === "movement") move += parseFloat(s.duration);
     else device += parseFloat(s.duration);
 
-    emotionCount[s.emotion] = (emotionCount[s.emotion] || 0) + 1;
+    if (s.emotion) {
+      emotionCount[s.emotion] = (emotionCount[s.emotion] || 0) + 1;
+    }
+
   });
 
   let topEmotion = "-";
   let max = 0;
 
   for (let emo in emotionCount) {
-    if (emotionCount[emo] > max) {
-      max = emotionCount[emo];
-      topEmotion = emo;
-    }
+  if (emotionCount[emo] > max) {
+    max = emotionCount[emo];
+    const obj = emotionsData.find(e => e.id === emo);
+    topEmotion = obj ? obj.label : emo; // ✅ emoji + testo
   }
+}
 
   return { move, device, topEmotion };
 }
@@ -184,13 +201,54 @@ function calculateStats() {
 // =========================
 
 function updateUI() {
+  const todayList = document.getElementById("todayList");
+  const historyDiv = document.getElementById("history");
+  
   sessionList.innerHTML = "";
+  todayList.innerHTML = "";
+  historyDiv.innerHTML = "";
 
-  sessions.forEach(s => {
-    const li = document.createElement("li");
-    li.textContent = `${s.type} - ${s.category} - ${s.duration} min (${(s.duration*60).toFixed(1)} sec) - ${s.emotion}`;
-    sessionList.appendChild(li);
+  const todaySessions = sessions.filter(s => isToday(s.date));
+  const oldSessions = sessions.filter(s => !isToday(s.date));
+
+   // 🔹 OGGI
+  todaySessions.forEach((s) => {
+  const realIndex = sessions.indexOf(s);
+  const emotionObj = emotionsData.find(e => 
+    e.label === s.emotion || e.id === s.emotion
+  );
+  const emotionDisplay = emotionObj ? emotionObj.label : "";
+  const li = document.createElement("li");
+  li.innerHTML = `
+    ${s.type} - ${s.category} - ${s.duration}s
+    ${emotionDisplay}
+    ${!s.emotion ? `<button onclick="setEmotion(${realIndex}, emotionSelect.value)">😊</button>` : ""}
+  `;
+  todayList.appendChild(li);
   });
+
+  // 🔹 STORICO PER GIORNO
+  const grouped = {};
+
+  oldSessions.forEach(s => {
+    const day = new Date(s.date).toLocaleDateString();
+    if (!grouped[day]) grouped[day] = [];
+    grouped[day].push(s);
+  });
+
+  for (let day in grouped) {
+    const div = document.createElement("div");
+
+    div.innerHTML = `<h4>${day}</h4>`;
+
+    grouped[day].forEach(s => {
+      const p = document.createElement("p");
+      p.textContent = `${s.type} - ${s.category} - ${s.duration}s ${s.emotion || ""}`;
+      div.appendChild(p);
+    });
+
+    historyDiv.appendChild(div);
+  }
 
   const points = calculatePoints();
   pointsDisplay.textContent = points + " XP";
@@ -211,7 +269,7 @@ function updateUI() {
   });
 
   drawChart(stats.move, stats.device);
-}
+} 
 
 
 // =========================
@@ -265,7 +323,8 @@ stopBtn.addEventListener("click", () => {
     type: typeSelect.value,
     category: categorySelect.value || "N/A",
     duration: durationMin,
-    emotion: emotionSelect.value
+    emotion: emotionSelect.value,
+    date: new Date().toISOString(), 
   };
 
   sessions.push(session);
