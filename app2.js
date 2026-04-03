@@ -161,6 +161,19 @@ function setEmotion(index, emotionId) {
   updateUI();
 }
 
+function formatSmartDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  const today = new Date();
+  if (d.toDateString() === today.toDateString()) {
+    return "Oggi";
+  }
+  return d.toLocaleDateString("it-IT", {
+    day: "numeric",
+    month: "short"
+  });
+}
+
 
 // =========================
 // STATS
@@ -201,6 +214,15 @@ function calculateStats() {
 // =========================
 
 function updateUI() {
+
+  const todayDateEl = document.getElementById("todayDate");
+  const today = new Date();
+  todayDateEl.textContent = today.toLocaleDateString("it-IT", {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+});
+  
   const todayList = document.getElementById("todayList");
   const historyDiv = document.getElementById("history");
   
@@ -208,24 +230,37 @@ function updateUI() {
   todayList.innerHTML = "";
   historyDiv.innerHTML = "";
 
+  sessions.sort((a, b) => new Date(b.date) - new Date(a.date));
+
   const todaySessions = sessions.filter(s => isToday(s.date));
   const oldSessions = sessions.filter(s => !isToday(s.date));
 
    // 🔹 OGGI
   todaySessions.forEach((s) => {
   const realIndex = sessions.indexOf(s);
-  const emotionObj = emotionsData.find(e => 
-    e.label === s.emotion || e.id === s.emotion
-  );
-  const emotionDisplay = emotionObj ? emotionObj.label : "";
+  const dateLabel = formatSmartDate(s.date);
+
   const li = document.createElement("li");
+
+  const emotionHTML = s.emotion
+    ? s.emotion
+    : `
+      <select onchange="setEmotion(${realIndex}, this.value)">
+        <option value="">😊</option>
+        ${emotionsData.map(e => `
+          <option value="${e.id}">${e.label}</option>
+        `).join("")}
+      </select>
+    `;
+
   li.innerHTML = `
+    <small>${dateLabel}</small><br>
     ${s.type} - ${s.category} - ${s.duration}s
-    ${emotionDisplay}
-    ${!s.emotion ? `<button onclick="setEmotion(${realIndex}, emotionSelect.value)">😊</button>` : ""}
+    ${emotionHTML}
   `;
+
   todayList.appendChild(li);
-  });
+});
 
   // 🔹 STORICO PER GIORNO
   const grouped = {};
@@ -242,11 +277,11 @@ function updateUI() {
     div.innerHTML = `<h4>${day}</h4>`;
 
     grouped[day].forEach(s => {
-      const p = document.createElement("p");
-      p.textContent = `${s.type} - ${s.category} - ${s.duration}s ${s.emotion || ""}`;
-      div.appendChild(p);
+        const p = document.createElement("p");
+        const dateLabel = formatSmartDate(s.date);
+        p.textContent = `${dateLabel} - ${s.type} - ${s.category} - ${s.duration}s ${s.emotion || ""}`;
+        div.appendChild(p);
     });
-
     historyDiv.appendChild(div);
   }
 
@@ -323,8 +358,9 @@ stopBtn.addEventListener("click", () => {
     type: typeSelect.value,
     category: categorySelect.value || "N/A",
     duration: durationMin,
-    emotion: emotionSelect.value,
+    //emotion: emotionSelect.value,
     date: new Date().toISOString(), 
+    emotion: null // ✅ parte senza emozione, si aggiunge dopo con il pulsante  
   };
 
   sessions.push(session);
