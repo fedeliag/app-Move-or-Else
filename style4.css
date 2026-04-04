@@ -69,10 +69,11 @@ body {
   display: none;
   padding: 16px;
 }
+/*
 .screen {
   display: none;
   padding: 20px;
-}
+}*/
 .screen.active {
   display: block;
 }
