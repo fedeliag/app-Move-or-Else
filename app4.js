@@ -188,12 +188,34 @@ function calculateStats() {
 // SCREEN
 // =========================
 
-function goTo(screen) {
+/*function goTo(screen) {
   document.querySelectorAll(".screen").forEach(s => {
     s.classList.remove("active");
   });
 
   document.getElementById("screen-" + screen).classList.add("active");
+}*/
+
+function goTo(screen) {
+  const current = document.querySelector(".screen.active");
+  const next = document.getElementById("screen-" + screen);
+
+  if (current === next) return;
+
+  current.classList.add("exit-left");
+
+  setTimeout(() => {
+    current.classList.remove("active", "exit-left");
+    next.classList.add("active");
+  }, 200);
+}
+
+function vibrate(type = "light") {
+  if (!navigator.vibrate) return;
+
+  if (type === "light") navigator.vibrate(20);
+  if (type === "medium") navigator.vibrate(50);
+  if (type === "heavy") navigator.vibrate([50, 30, 50]);
 }
 
 // =========================
@@ -354,6 +376,7 @@ typeSelect.addEventListener("change", populateCategories);
 startBtn.addEventListener("click", () => {
   startTime = Date.now();
   stato.textContent = "In corso...";
+  vibrate("light");
 });
 
 stopBtn.addEventListener("click", () => {
@@ -368,14 +391,37 @@ stopBtn.addEventListener("click", () => {
     duration: durationMin,
     //emotion: emotionSelect.value,
     date: new Date().toISOString(), 
-    emotion: null // ✅ parte senza emozione, si aggiunge dopo con il pulsante  
+    emotion: null // ✅ parte senza emozione, si aggiunge dopo con il pulsante 
   };
-
   sessions.push(session);
   localStorage.setItem("sessions", JSON.stringify(sessions));
-
   startTime = null;
   stato.textContent = "Fermo";
-
+  vibrate("medium");
   updateUI();
 });
+
+let startX = 0;
+
+document.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+
+document.addEventListener("touchend", e => {
+  let endX = e.changedTouches[0].clientX;
+  let diff = startX - endX;
+
+  if (Math.abs(diff) < 50) return;
+
+  const screens = ["home", "session", "stats"];
+  let currentIndex = screens.findIndex(s =>
+    document.getElementById("screen-" + s).classList.contains("active")
+  );
+
+  if (diff > 0 && currentIndex < screens.length - 1) {
+    goTo(screens[currentIndex + 1]); // swipe left
+  } else if (diff < 0 && currentIndex > 0) {
+    goTo(screens[currentIndex - 1]); // swipe right
+  }
+});
+

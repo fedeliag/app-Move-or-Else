@@ -43,21 +43,37 @@ body {
 }*/
 
 /* SCREEN */
+
 .screen {
-  display: none;
-  padding: 16px;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease;
 }
 
 .screen.active {
-  display: block;
+  opacity: 1;
+  transform: translateX(0);
+  position: relative;
+}
+
+.screen.exit-left {
+  transform: translateX(-100%);
+  opacity: 0;
 }
 
 /* 
 .screen {
   display: none;
+  padding: 16px;
+}
+.screen {
+  display: none;
   padding: 20px;
 }
-
 .screen.active {
   display: block;
 }*/
