@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Tracker App</title>
+  <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <h1>Tracker App</h1>
+    <p id="points">0 XP</p>
+    <h2 id="todayDate"></h2>
+    <div class="tone-picker">
+        <button data-tone="neutral">🤖</button>
+        <button data-tone="ironic">🤡</button>
+        <button data-tone="dark">😈</button>
+    </div>
+  </header>
+
+  <!-- SESSION CARD -->
+  <section class="card">
+
+    <h2>Nuova Sessione</h2>
+
+    <select id="type">
+        <option value="movement">Movimento</option>
+        <option value="device">Dispositivo</option>
+    </select>
+    <select id="category"></select>
+    <select id="emotion"></select>
+
+    <div class="buttons">
+      <button id="startBtn">▶</button>
+      <button id="stopBtn">■</button>
+    </div>
+
+    <p id="stato">Fermo</p>
+    <p id="message"></p>
+
+  </section>
+
+  <!-- STATS -->
+  <section class="card stats">
+    <h2>Statistiche</h2>
+    <div class="stat-grid">
+      <div>
+        <span id="moveTime">0</span>
+        <small>Movimento</small>
+      </div>
+      <div>
+        <span id="deviceTime">0</span>
+        <small>Dispositivo</small>
+      </div>
+      <div>
+        <span id="topEmotion">-</span>
+        <small>Top Emozione</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- BADGE -->
+  <section class="card">
+    <h2>Badge</h2>
+    <ul id="badgeList"></ul>
+  </section>
+
+  <!-- GRAFICO -->
+  <section class="card">
+    <canvas id="chart"></canvas>
+  </section>
+
+  <!-- SESSION LIST -->
+
+  <section class="card">
+    <h2>Sessioni</h2>
+    <h3>Oggi</h3>
+    <ul id="todayList"></ul>
+
+    <h3>Storico</h3>
+    <div id="history"></div>
+        <ul id="sessionList"></ul>
+    </div>
+  </section>
+
+
+
+<script src="app3.js"></script>
+</body>
+</html>

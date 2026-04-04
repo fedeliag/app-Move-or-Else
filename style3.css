@@ -1,0 +1,227 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #2563eb;
+  --surface: white;
+  --text: #222;
+  --text-soft: #666;
+  --shadow: 0 6px 16px rgba(0,0,0,0.08);
+
+}
+
+/* BASE */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f3f5f7;
+  color: #222;
+}
+
+/* APP CONTAINER */
+.app {
+  max-width: 420px;
+  margin: auto;
+  padding: 16px;
+}
+
+/* HEADER */
+.app-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+}
+
+.app-header p {
+  font-size: 1.2rem;
+  color: #2563eb;
+  font-weight: bold;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+/* TITOLI */
+h2 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+/* SELECT */
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+/* BUTTONS */
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+#emotion {
+  display: none;
+}
+
+#startBtn {
+  background: #22c55e;
+  color: white;
+}
+
+#stopBtn {
+  background: #ef4444;
+  color: white;
+}
+
+.tone-picker {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.tone-picker button {
+  font-size: 20px;
+  border: 1px solid #595151;
+  background-color: var(--surface);
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tone-picker button.active {
+  background-color: var(--primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.emoji-picker {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.emoji-picker span {
+  cursor: pointer;
+  font-size: 20px;
+  transition: transform 0.15s ease;
+}
+
+.emoji-picker span:hover {
+  transform: scale(1.3);
+}
+
+.emoji-selected {
+  font-size: 20px;
+}
+
+.session-card {
+  background: var(--surface);
+  padding: 12px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow);
+}
+
+.session-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.session-main {
+  margin-top: 6px;
+}
+
+.session-bottom {
+  margin-top: 8px;
+}
+
+/* STATUS */
+#stato {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+#message {
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* STATS GRID */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+}
+
+.stat-grid span {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.stat-grid small {
+  color: #666;
+}
+
+/* LIST */
+ul {
+  list-style: none;
+}
+
+li {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+/* IRONIC MODE (collegato al tuo tone) */
+body.ironic {
+  background: #cbdbeb;
+  color: #292438;
+}
+
+body.ironic.card {
+  background: #1e293b;
+}
+
+/* DARK MODE (collegato al tuo tone) */
+body.dark {
+  background: #0f1720;
+  color: white;
+}
+
+body.dark.card {
+  background: #1e293b;
+}
+
+
+/* RESPONSIVE EXTRA */
+@media (max-width: 400px) {
+  .app {
+    padding: 10px;
+  }
+}
