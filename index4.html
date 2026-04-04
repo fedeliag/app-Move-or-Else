@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Tracker App</title>
+  <link rel="stylesheet" href="style4.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- SCREEN 1 -->
+  <section id="screen-home" class="screen active">
+    <h1>⚡ Life Balance</h1>
+
+    <div class="tone-picker">
+        <button data-tone="neutral">🤖</button>
+        <button data-tone="ironic">🤡</button>
+        <button data-tone="dark">😈</button>
+    </div>
+    <h2 id="todayDate"></h2>
+    <div class="card">
+      <h3 id="points"></h3>
+      <p id="message"></p>
+      <p id="lastBadge"></p>
+    </div>
+  </section>
+
+
+  <!-- SCREEN 2 -->
+  <section id="screen-session" class="screen">
+    <h2>Sessione</h2>
+    <select id="type">
+        <option value="movement">Movimento</option>
+        <option value="device">Dispositivo</option>
+    </select>
+    <select id="category"></select>
+    <select id="emotion"></select>
+
+    <div class="buttons">
+      <button id="startBtn">▶</button>
+      <button id="stopBtn">■</button>
+    </div>
+
+    <p id="stato">Fermo</p>
+    <p id="message"></p>
+   
+<!-- BADGE -->
+  <div class="card">
+        <h2>Badge</h2>
+        <ul id="badgeList"></ul>
+  </div>
+ <!-- SESSIONS --> 
+   <div class="card">
+        <h2>Sessioni</h2>
+        <h3>Oggi</h3>
+        <ul id="todayList"></ul>
+
+        <h3>Storico</h3>
+        <div id="history"></div>
+            <ul id="sessionList"></ul>
+        </div>
+    </div>
+  </section>
+
+
+  <!-- SCREEN 3 -->
+<section id="screen-stats" class="screen">
+    <h2>Statistiche</h2>
+        <div class="stat-grid">
+            <div>
+                <span id="moveTime">0</span>
+                <small>Movimento</small>
+            </div>
+            <div>
+                <span id="deviceTime">0</span>
+                <small>Dispositivo</small>
+            </div>
+                <div>
+                <span id="topEmotion">-</span>
+                <small>Top Emozione</small>
+                </div>
+
+        </div>
+
+ <!-- GRAFICO -->
+    <div class="card">
+    <canvas id="chart"></canvas>
+    </div>
+  </section>
+
+
+  <!-- NAV BAR -->
+  <nav class="nav">
+    <button onclick="goTo('home')">🏠</button>
+    <button onclick="goTo('session')">➕</button>
+    <button onclick="goTo('stats')">📊</button>
+  </nav>
+
+</div>
+
+<script src="app4.js"></script>
+</body>
+</html>
