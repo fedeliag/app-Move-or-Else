@@ -404,6 +404,7 @@ stopBtn.addEventListener("click", () => {
   updateUI();
 });
 
+/*
 let startX = 0;
 let startY = 0;
 
@@ -436,4 +437,4 @@ document.addEventListener("touchend", e => {
     goTo(screens[currentIndex - 1]); // → swipe right
   }
 }, { passive: true });
-
+*/
