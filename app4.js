@@ -188,41 +188,12 @@ function calculateStats() {
 // SCREEN
 // =========================
 
-/*function goTo(screen) {
+function goTo(screen) {
   document.querySelectorAll(".screen").forEach(s => {
     s.classList.remove("active");
   });
 
   document.getElementById("screen-" + screen).classList.add("active");
-}*/
-
-let currentScreenIndex = 0;
-const screens = ["home", "session", "stats"];
-
-function goTo(screen) {
-  const newIndex = screens.indexOf(screen);
-  const current = document.querySelector(".screen.active");
-  const next = document.getElementById("screen-" + screen);
-
-  if (!next || current === next) return;
-
-  const direction = newIndex > currentScreenIndex ? "right" : "left";
-
-  next.classList.add("active");
-
-  if (direction === "right") {
-    next.classList.add("enter-right");
-    current.classList.add("exit-left");
-  } else {
-    next.classList.add("enter-left");
-    current.classList.add("exit-right");
-  }
-
-  setTimeout(() => {
-    current.className = "screen";
-    next.classList.remove("enter-right", "enter-left");
-    currentScreenIndex = newIndex;
-  }, 300);
 }
 
 function vibrate(type = "light") {
