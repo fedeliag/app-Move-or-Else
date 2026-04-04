@@ -43,7 +43,7 @@ body {
 }*/
 
 /* SCREEN */
-
+/*
 .screen {
   position: absolute;
   width: 100%;
@@ -63,9 +63,8 @@ body {
 .screen.exit-left {
   transform: translateX(-100%);
   opacity: 0;
-}
+}*/
 
-/* 
 .screen {
   display: none;
   padding: 16px;
@@ -76,9 +75,7 @@ body {
 }
 .screen.active {
   display: block;
-}*/
-
-
+}
 
 /* HEADER */
 .app-header {

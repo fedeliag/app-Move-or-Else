@@ -189,6 +189,13 @@ function calculateStats() {
 // =========================
 
 function goTo(screen) {
+  document.querySelectorAll(".screen").forEach(s => {
+    s.classList.remove("active");
+  });
+
+  document.getElementById("screen-" + screen).classList.add("active");
+}
+/*function goTo(screen) {
   const current = document.querySelector(".screen.active");
   const next = document.getElementById("screen-" + screen);
 
@@ -200,7 +207,8 @@ function goTo(screen) {
     current.classList.remove("active", "exit-left");
     next.classList.add("active");
   }, 200);
-}
+} */
+
 
 function vibrate(type = "light") {
   if (!("vibrate" in navigator)) {
