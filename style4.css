@@ -366,7 +366,6 @@ body.ironic.card {
 /* DARK MODE (collegato al tuo tone) */
 body.dark {
   background: #0f1720;
-  color: white;
 }
 
 body.dark.card {
