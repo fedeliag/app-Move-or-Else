@@ -196,26 +196,44 @@ function calculateStats() {
   document.getElementById("screen-" + screen).classList.add("active");
 }*/
 
+let currentScreenIndex = 0;
+const screens = ["home", "session", "stats"];
+
 function goTo(screen) {
+  const newIndex = screens.indexOf(screen);
   const current = document.querySelector(".screen.active");
   const next = document.getElementById("screen-" + screen);
 
-  if (current === next) return;
+  if (!next || current === next) return;
 
-  current.classList.add("exit-left");
+  const direction = newIndex > currentScreenIndex ? "right" : "left";
+
+  next.classList.add("active");
+
+  if (direction === "right") {
+    next.classList.add("enter-right");
+    current.classList.add("exit-left");
+  } else {
+    next.classList.add("enter-left");
+    current.classList.add("exit-right");
+  }
 
   setTimeout(() => {
-    current.classList.remove("active", "exit-left");
-    next.classList.add("active");
-  }, 200);
+    current.className = "screen";
+    next.classList.remove("enter-right", "enter-left");
+    currentScreenIndex = newIndex;
+  }, 300);
 }
 
 function vibrate(type = "light") {
-  if (!navigator.vibrate) return;
+  if (!("vibrate" in navigator)) {
+    console.log("Vibrazione non supportata");
+    return;
+  }
 
-  if (type === "light") navigator.vibrate(20);
-  if (type === "medium") navigator.vibrate(50);
-  if (type === "heavy") navigator.vibrate([50, 30, 50]);
+  if (type === "light") navigator.vibrate(30);
+  if (type === "medium") navigator.vibrate(60);
+  if (type === "heavy") navigator.vibrate([80, 40, 80]);
 }
 
 // =========================
@@ -402,26 +420,35 @@ stopBtn.addEventListener("click", () => {
 });
 
 let startX = 0;
+let startY = 0;
 
 document.addEventListener("touchstart", e => {
   startX = e.touches[0].clientX;
-});
+  startY = e.touches[0].clientY;
+}, { passive: true });
 
 document.addEventListener("touchend", e => {
-  let endX = e.changedTouches[0].clientX;
-  let diff = startX - endX;
+  const endX = e.changedTouches[0].clientX;
+  const endY = e.changedTouches[0].clientY;
 
-  if (Math.abs(diff) < 50) return;
+  const diffX = startX - endX;
+  const diffY = startY - endY;
+
+  // ❗ evita swipe verticale
+  if (Math.abs(diffX) < Math.abs(diffY)) return;
+
+  // ❗ soglia minima
+  if (Math.abs(diffX) < 60) return;
 
   const screens = ["home", "session", "stats"];
-  let currentIndex = screens.findIndex(s =>
+  const currentIndex = screens.findIndex(s =>
     document.getElementById("screen-" + s).classList.contains("active")
   );
 
-  if (diff > 0 && currentIndex < screens.length - 1) {
-    goTo(screens[currentIndex + 1]); // swipe left
-  } else if (diff < 0 && currentIndex > 0) {
-    goTo(screens[currentIndex - 1]); // swipe right
+  if (diffX > 0 && currentIndex < screens.length - 1) {
+    goTo(screens[currentIndex + 1]); // ← swipe left
+  } else if (diffX < 0 && currentIndex > 0) {
+    goTo(screens[currentIndex - 1]); // → swipe right
   }
-});
+}, { passive: true });
 
