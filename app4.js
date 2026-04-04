@@ -189,11 +189,17 @@ function calculateStats() {
 // =========================
 
 function goTo(screen) {
-  document.querySelectorAll(".screen").forEach(s => {
-    s.classList.remove("active");
-  });
+  const current = document.querySelector(".screen.active");
+  const next = document.getElementById("screen-" + screen);
 
-  document.getElementById("screen-" + screen).classList.add("active");
+  if (current === next) return;
+
+  current.classList.add("exit-left");
+
+  setTimeout(() => {
+    current.classList.remove("active", "exit-left");
+    next.classList.add("active");
+  }, 200);
 }
 
 function vibrate(type = "light") {
