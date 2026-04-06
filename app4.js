@@ -28,6 +28,11 @@ const badgeList = document.getElementById("badgeList");
 const canvas = document.getElementById("chart");
 const ctx = canvas.getContext("2d");
 
+const colors = {
+  movement: ["#4CAF50", "#81C784", "#A5D6A7"],
+  device: ["#F44336", "#E57373", "#EF9A9A"]
+};
+
 
 // =========================
 // INIT APP (FONDAMENTALE)
@@ -363,7 +368,60 @@ function updateUI() {
 // CHART
 // =========================
 
-function drawChart(move, device) {
+function getCategoryBreakdown() {
+  const data = {};
+
+  sessions.forEach(s => {
+    const key = `${s.type}_${s.category}`;
+
+    if (!data[key]) {
+      data[key] = {
+        type: s.type,
+        category: s.category,
+        total: 0
+      };
+    }
+
+    data[key].total += parseFloat(s.duration);
+  });
+
+  return Object.values(data);
+}
+function drawPieChart() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const data = getCategoryBreakdown();
+
+  const total = data.reduce((sum, d) => sum + d.total, 0);
+
+  let startAngle = 0;
+
+  let colorIndex = {
+    movement: 0,
+    device: 0
+  };
+
+  data.forEach(d => {
+    const sliceAngle = (d.total / total) * 2 * Math.PI;
+
+    const color = colors[d.type][colorIndex[d.type] % colors[d.type].length];
+    colorIndex[d.type]++;
+
+    ctx.beginPath();
+    ctx.moveTo(100, 100);
+    ctx.arc(100, 100, 80, startAngle, startAngle + sliceAngle);
+    ctx.closePath();
+
+    ctx.fillStyle = color;
+    ctx.fill();
+
+    startAngle += sliceAngle;
+  });
+
+  drawLegend(data);
+}
+
+/*function drawChart(move, device) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const max = Math.max(move, device, 1);
@@ -380,6 +438,39 @@ function drawChart(move, device) {
   ctx.fillStyle = "black";
   ctx.fillText("Move", 50, 140);
   ctx.fillText("Device", 150, 140);
+}*/
+
+function drawLegend(data) {
+  const legend = document.getElementById("legend");
+  legend.innerHTML = "";
+
+  data.forEach(d => {
+    const div = document.createElement("div");
+
+    div.style.display = "flex";
+    div.style.alignItems = "center";
+    div.style.marginBottom = "4px";
+
+    const colorBox = document.createElement("span");
+    colorBox.style.width = "12px";
+    colorBox.style.height = "12px";
+    colorBox.style.marginRight = "6px";
+
+    const color = colors[d.type][0];
+    colorBox.style.background = color;
+
+    const label = document.createElement("span");
+    label.textContent = `${d.category} (${d.total.toFixed(1)})`;
+
+    div.appendChild(colorBox);
+    div.appendChild(label);
+
+    legend.appendChild(div);
+  });
+}
+
+function drawChart(move, device) {
+  drawPieChart();
 }
 
 
