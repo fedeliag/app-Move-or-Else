@@ -188,13 +188,37 @@ function calculateStats() {
 // SCREEN
 // =========================
 
+const navButtons = document.querySelectorAll(".nav-btn");
+
+let currentScreenIndex = 0;
+const screens = ["home", "session", "stats"];
+
 function goTo(screen) {
+  const newIndex = screens.indexOf(screen);
+  const current = document.querySelector(".screen.active");
+  const next = document.getElementById("screen-" + screen);
+
+  if (!next || current === next) return;
+
+  // animazione semplice senza timeout
+  next.classList.add("active");
+  current.classList.remove("active");
+
+  currentScreenIndex = newIndex;
+
+  // update nav active
+  navButtons.forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.screen === screen);
+  });
+}
+
+/*function goTo(screen) {
   document.querySelectorAll(".screen").forEach(s => {
     s.classList.remove("active");
   });
 
   document.getElementById("screen-" + screen).classList.add("active");
-}
+}*/
 /*function goTo(screen) {
   const current = document.querySelector(".screen.active");
   const next = document.getElementById("screen-" + screen);
@@ -363,6 +387,12 @@ function drawChart(move, device) {
 // EVENTS
 // =========================
 
+navButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const screen = btn.dataset.screen;
+    goTo(screen);
+  });
+});
 
 toneButtons.forEach(btn => {
   btn.addEventListener("click", () => {

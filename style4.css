@@ -8,8 +8,8 @@
 :root {
   --primary: #2563eb;
   --surface: white;
-  --text: #222;
-  --text-soft: #666;
+  --text: #382222;
+  --text-soft: #604c4c;
   --shadow: 0 6px 16px rgba(0,0,0,0.08);
 
 }
@@ -20,13 +20,6 @@ body {
   background: #f5f5f5;
   font-size: 16px;  
 }
-/*
-body {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #f3f5f7;
-  color: #222;
-  margin : 0;
-}*/
 
 /* APP CONTAINER */
 #app {
@@ -35,45 +28,18 @@ body {
   padding-bottom: 80px; /* spazio navbar */
 }
 
-/* 
-.app {
-  max-width: 420px;
-  margin: auto;
-  padding: 16px;
-}*/
-
 /* SCREEN */
-/*
+
 .screen {
+  display: none;
   position: absolute;
-  width: 100%;
   top: 0;
   left: 0;
-  opacity: 0;
-  transform: translateX(100%);
+  width: 100%;
   transition: all 0.3s ease;
-}
-
-.screen.active {
-  opacity: 1;
-  transform: translateX(0);
-  position: relative;
-}
-
-.screen.exit-left {
-  transform: translateX(-100%);
-  opacity: 0;
-}*/
-
-.screen {
-  display: none;
   padding: 16px;
 }
-/*
-.screen {
-  display: none;
-  padding: 20px;
-}*/
+
 .screen.active {
   display: block;
 }
@@ -99,17 +65,9 @@ body {
   background: white;
   padding: 16px;
   border-radius: 16px;
-  margin: 10px 0;
+  margin: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
-/*
-.card {
-  background: white;
-  padding: 16px;
-  border-radius: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}*/
 
 /* TITOLI */
 h1 {
@@ -126,11 +84,6 @@ h3 {
   font-size: 16px;
   margin: 8px 0;
 }
-/*
-h2 {
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-}*/
 
 /* SELECT */
 select {
@@ -140,14 +93,6 @@ select {
   margin-bottom: 10px;
   border-radius: 10px;
 }
-/*
-select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}*/
 
 /* BOTTONI */
 button {
@@ -168,20 +113,6 @@ button {
   flex: 1;
   font-size: 22px;
 }
-/* 
-.buttons {
-  display: flex;
-  gap: 10px;
-}
-
-button {
-  flex: 1;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-}*/
 
 #emotion {
   display: none;
@@ -202,6 +133,7 @@ button {
   display: flex;
   justify-content: space-around;
   margin: 10px 0;
+  gap: 10px;
 }
 
 .tone-picker button {
@@ -210,37 +142,15 @@ button {
   background-color: var(--surface);
   padding: 10px;
   border-radius: 12px;
-  cursor: pointer;
+  /* cursor: pointer; */
   transition: all 0.2s ease;
 }
 
 .tone-picker .active {
   background-color: var(--primary);
   color: white;
-  transform: scale(1.2);
-}
-/*
-.tone-picker {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.tone-picker button {
-  font-size: 20px;
-  border: 1px solid #595151;
-  background-color: var(--surface);
-  padding: 10px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.tone-picker button.active {
-  background-color: var(--primary);
-  color: white;
   transform: scale(1.1);
-}*/
+}
 
 .emoji-picker {
   display: flex;
@@ -269,14 +179,6 @@ button {
   border-radius: 12px;
   margin-bottom: 8px;
 }
-/*
-.session-card {
-  background: var(--surface);
-  padding: 12px;
-  border-radius: 14px;
-  margin-bottom: 10px;
-  box-shadow: var(--shadow);
-}*/
 
 .session-top {
   display: flex;
@@ -320,22 +222,6 @@ button {
   color: #666;
 }
 
-
-/* .stat-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  text-align: center;
-}
-
-.stat-grid span {
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-
-.stat-grid small {
-  color: #666;
-}*/
-
 /* LIST */
 ul {
   list-style: none;
@@ -348,25 +234,36 @@ li {
 
 
 /* NAVBAR */
-.nav {
+
+.nav{
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-
   display: flex;
   justify-content: space-around;
-
+  gap: 10px;
   background: white;
   padding: 10px;
   border-top: 1px solid #ccc;
 }
 
-.nav button {
+.nav-btn {
   background: none;
-  font-size: 22px;
+  opacity: 0.5;
+  border: 1px solid #595151;
+  font-size: 24px;
+  /*transition: all 0.2s ease;*/
 }
 
+/* active */
+.nav-btn.active {
+  opacity: 1;
+  background-color: var(--primary);
+  /*transform: scale(1.1);*/
+}
+
+/* MODES */
 /* IRONIC MODE (collegato al tuo tone) */
 body.ironic {
   background: #cbdbeb;

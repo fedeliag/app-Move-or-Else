@@ -12,14 +12,16 @@
 
   <!-- SCREEN 1 -->
   <section id="screen-home" class="screen active">
-    <h1>⚡ Life Balance</h1>
+    <h1>⚡ Move or Else</h1>
 
     <div class="tone-picker">
         <button data-tone="neutral">🤖</button>
         <button data-tone="ironic">🤡</button>
         <button data-tone="dark">😈</button>
     </div>
+
     <h2 id="todayDate"></h2>
+
     <div class="card">
       <h3 id="points"></h3>
       <p id="message"></p>
@@ -30,6 +32,7 @@
 
   <!-- SCREEN 2 -->
   <section id="screen-session" class="screen">
+    <h1>⚡ Move or Else</h1>
     <h2>Sessione</h2>
     <select id="type">
         <option value="movement">Movimento</option>
@@ -67,6 +70,7 @@
 
   <!-- SCREEN 3 -->
 <section id="screen-stats" class="screen">
+    <h1>⚡ Move or Else</h1>
     <h2>Statistiche</h2>
         <div class="stat-grid">
             <div>
@@ -92,11 +96,11 @@
 
 
   <!-- NAV BAR -->
-  <nav class="nav">
-    <button onclick="goTo('home')">🏠</button>
-    <button onclick="goTo('session')">➕</button>
-    <button onclick="goTo('stats')">📊</button>
-  </nav>
+    <nav class="nav">
+        <button class="nav-btn active" data-screen="home">🏠</button>
+        <button class="nav-btn" data-screen="session">➕</button>
+        <button class="nav-btn" data-screen="stats">📊</button>
+    </nav>
 
 </div>
 
