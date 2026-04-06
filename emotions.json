@@ -1,8 +1,8 @@
 [
-  { "id": "happy", "label": "😊 Felice", "weight": 2 },
-  { "id": "neutral", "label": "😐 Neutro", "weight": 0 },
-  { "id": "tired", "label": "😴 Stanco", "weight": -1 },
-  { "id": "angry", "label": "😡 Stressato", "weight": -2 },
-  { "id": "focused", "label": "🎯 Concentrato", "weight": 1 }
+  { "id": "happy", "label": "😊", "weight": 2 },
+  { "id": "neutral", "label": "😐", "weight": 0 },
+  { "id": "tired", "label": "😴", "weight": -1 },
+  { "id": "angry", "label": "😡", "weight": -2 },
+  { "id": "focused", "label": "🎯", "weight": 1 }
 ]
 
