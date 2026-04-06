@@ -345,8 +345,8 @@ function updateUI() {
 
   const stats = calculateStats();
 
-  moveTimeEl.textContent = stats.move.toFixed(2);
-  deviceTimeEl.textContent = stats.device.toFixed(2);
+  moveTimeEl.textContent = stats.move.toFixed(2) +" min";
+  deviceTimeEl.textContent = stats.device.toFixed(2) +" min";
   topEmotionEl.textContent = stats.topEmotion;
 
   badgeList.innerHTML = "";
