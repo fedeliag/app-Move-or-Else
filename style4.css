@@ -238,6 +238,16 @@ li {
   border-bottom: 1px solid #eee;
 }
 
+/* CHARTS */
+.chart-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#legend {
+  font-size: 12px;
+}
 
 /* NAVBAR */
 

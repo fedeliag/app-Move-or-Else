@@ -6,7 +6,6 @@ let messages = {};
 let categoriesData = {};
 let emotionsData = [];
 let badgesData = [];
-
 let startTime = null;
 
 // DOM
@@ -299,7 +298,7 @@ function updateUI() {
   <div class="session-card">
     <div class="session-top">
       <span>${formatSmartDate(s.date)}</span>
-      <span>${s.duration}s</span>
+      <span>${s.duration} min</span>
     </div>
 
     <div class="session-main">
@@ -333,7 +332,7 @@ function updateUI() {
     grouped[day].forEach(s => {
         const p = document.createElement("p");
         const dateLabel = formatSmartDate(s.date);
-        p.textContent = `${dateLabel} - ${s.type} - ${s.category} - ${s.duration}s ${s.emotion || ""}`;
+        p.textContent = `${dateLabel} - ${s.type} - ${s.category} - ${s.duration} min ${s.emotion || ""}`;
         div.appendChild(p);
     });
     historyDiv.appendChild(div);
@@ -387,11 +386,15 @@ function getCategoryBreakdown() {
 
   return Object.values(data);
 }
+
+function getColor(type, index) {
+  return colors[type][index % colors[type].length];
+}
+
 function drawPieChart() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const data = getCategoryBreakdown();
-
   const total = data.reduce((sum, d) => sum + d.total, 0);
 
   let startAngle = 0;
@@ -404,8 +407,8 @@ function drawPieChart() {
   data.forEach(d => {
     const sliceAngle = (d.total / total) * 2 * Math.PI;
 
-    const color = colors[d.type][colorIndex[d.type] % colors[d.type].length];
-    colorIndex[d.type]++;
+    const index = colorIndex[d.type]++;
+    const color = getColor(d.type, index);
 
     ctx.beginPath();
     ctx.moveTo(100, 100);
@@ -414,6 +417,9 @@ function drawPieChart() {
 
     ctx.fillStyle = color;
     ctx.fill();
+
+    // 🔥 salva index invece del colore
+    d._colorIndex = index;
 
     startAngle += sliceAngle;
   });
@@ -449,18 +455,25 @@ function drawLegend(data) {
 
     div.style.display = "flex";
     div.style.alignItems = "center";
-    div.style.marginBottom = "4px";
+    div.style.marginBottom = "6px";
 
     const colorBox = document.createElement("span");
     colorBox.style.width = "12px";
     colorBox.style.height = "12px";
     colorBox.style.marginRight = "6px";
+    colorBox.style.borderRadius = "3px";
 
-    const color = colors[d.type][0];
-    colorBox.style.background = color;
+    // 🔥 colore ricostruito
+    colorBox.style.background = getColor(d.type, d._colorIndex);
 
     const label = document.createElement("span");
-    label.textContent = `${d.category} (${d.total.toFixed(1)})`;
+    let totalc= 0;
+    
+    data.forEach(d => {
+      totalc += d.total;
+  });
+    if (totalc === 0) totalc = 1; // evita divisione per zero
+    label.textContent = `${d.category} (${(d.total/totalc * 100).toFixed(1)}%)`;
 
     div.appendChild(colorBox);
     div.appendChild(label);
