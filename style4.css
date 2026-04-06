@@ -72,17 +72,18 @@ body {
 /* TITOLI */
 h1 {
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 h2 {
   font-size: 20px;
-  margin: 10px 0;
+  margin: 25px 0 0 0;
 }
 
 h3 {
   font-size: 16px;
-  margin: 8px 0;
+  margin: 8px 0 0 0;
 }
 
 /* SELECT */
@@ -144,6 +145,10 @@ button {
   border-radius: 12px;
   /* cursor: pointer; */
   transition: all 0.2s ease;
+}
+.tone-label {
+  display: block;
+  font-size: 16px;
 }
 
 .tone-picker .active {
@@ -219,6 +224,7 @@ button {
 }
 
 .stat-grid small {
+  display: block;
   color: #666;
 }
 
@@ -256,32 +262,38 @@ li {
   /*transition: all 0.2s ease;*/
 }
 
+.nav-label {
+  display: block;
+  font-size: 16px;
+}
+
 /* active */
 .nav-btn.active {
   opacity: 1;
   background-color: var(--primary);
+  color: white;  
   /*transform: scale(1.1);*/
 }
 
 /* MODES */
 /* IRONIC MODE (collegato al tuo tone) */
 body.ironic {
-  background: #cbdbeb;
+  background: #6d98c3;
   color: #292438;
 }
 
 body.ironic.card {
-  background: #1e293b;
+  background: #d2dded;
 }
 
 /* DARK MODE (collegato al tuo tone) */
 body.dark {
-  background: #0f1720;
+  background: #5a0c6f;
   color: #292438;
 }
 
 body.dark.card {
-  background: #1e293b;
+  background: #9c37b8;
 }
 
 

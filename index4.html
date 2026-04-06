@@ -13,27 +13,43 @@
   <!-- SCREEN 1 -->
   <section id="screen-home" class="screen active">
     <h1>⚡ Move or Else</h1>
-
+    <h2>Pick Your Tone:</h2>
     <div class="tone-picker">
-        <button data-tone="neutral">🤖</button>
-        <button data-tone="ironic">🤡</button>
-        <button data-tone="dark">😈</button>
+        <button data-tone="neutral">
+            <span class="tone-icon">🤖</span>
+            <span class="tone-label">Neutral</span>
+        </button>
+        <button data-tone="ironic">
+            <span class="tone-icon">🤡</span>
+            <span class="tone-label">Ironic</span>
+        </button>
+        <button data-tone="dark">
+            <span class="tone-icon">😈</span>
+            <span class="tone-label">Dark</span>
+        </button>
     </div>
 
-    <h2 id="todayDate"></h2>
+    <h2 id="welcomeMessage"></h2>
+    
+    <h2 >Today date:</h2>
+      <h3 id="todayDate"></h3>
 
-    <div class="card">
-      <h3 id="points"></h3>
-      <p id="message"></p>
-      <p id="lastBadge"></p>
-    </div>
+    <h2>Score:</h2>
+      <div class="card">
+        <h3 id="points"></h3>
+        <p id="message"></p>  
+      </div>
+    <h2>Badge:</h2>
+      <div class="card">
+        <ul id="badgeList"></ul>
+      </div>
   </section>
 
 
   <!-- SCREEN 2 -->
   <section id="screen-session" class="screen">
     <h1>⚡ Move or Else</h1>
-    <h2>Sessione</h2>
+    <h2>New Session:</h2>
     <select id="type">
         <option value="movement">Movimento</option>
         <option value="device">Dispositivo</option>
@@ -50,12 +66,13 @@
     <p id="message"></p>
    
 <!-- BADGE -->
+  <h2>Last Badge:</h2>
   <div class="card">
-        <h2>Badge</h2>
-        <ul id="badgeList"></ul>
+        <p id="lastBadge"></p>
   </div>
  <!-- SESSIONS --> 
-   <div class="card">
+  <h2>Sessions:</h2>
+  <div class="card">
         <h2>Sessioni</h2>
         <h3>Oggi</h3>
         <ul id="todayList"></ul>
@@ -71,7 +88,7 @@
   <!-- SCREEN 3 -->
 <section id="screen-stats" class="screen">
     <h1>⚡ Move or Else</h1>
-    <h2>Statistiche</h2>
+    <h2>Stats</h2>
         <div class="stat-grid">
             <div>
                 <span id="moveTime">0</span>
@@ -89,17 +106,28 @@
         </div>
 
  <!-- GRAFICO -->
+    <h2>Activity Over Time</h2>
     <div class="card">
-    <canvas id="chart"></canvas>
+    <canvas id="chart" ></canvas>
     </div>
   </section>
 
 
   <!-- NAV BAR -->
     <nav class="nav">
-        <button class="nav-btn active" data-screen="home">🏠</button>
-        <button class="nav-btn" data-screen="session">➕</button>
-        <button class="nav-btn" data-screen="stats">📊</button>
+        <button class="nav-btn active" data-screen="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-btn" data-screen="session">
+            <span class="nav-icon">➕</span>
+            <span class="nav-label">Session</span>
+        </button>
+
+        <button class="nav-btn" data-screen="stats">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Stats</span>
+        </button>
     </nav>
 
 </div>
