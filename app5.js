@@ -23,6 +23,9 @@ const emotionSelect = document.getElementById("emotion");
 const moveTimeEl = document.getElementById("moveTime");
 const deviceTimeEl = document.getElementById("deviceTime");
 const topEmotionEl = document.getElementById("topEmotion");
+const streakEl=document.getElementById("streak");
+const emotionScoreEl=document.getElementById("emotionScore");
+const levelEl=document.getElementById("level");
 const badgeList = document.getElementById("badgeList");
 const canvas = document.getElementById("chart");
 const ctx = canvas.getContext("2d");
@@ -100,9 +103,9 @@ function isToday(dateStr) {
   return d.toDateString() === today.toDateString();
 }
 
+//old
 function calculatePoints() {
   let points = 0;
-
   sessions.forEach(s => {
     if (s.type === "movement") {
       points += parseFloat(s.duration) * parseFloat(config.movementMultiplier);
@@ -110,8 +113,15 @@ function calculatePoints() {
       points -= parseFloat(s.duration) * parseFloat(config.devicePenalty);
     }
   });
-
   return points;
+}
+
+function calculateSessionPoints(session) {
+  if (session.type === "movement") {
+    return session.duration * config.movementMultiplier;
+  } else {
+    return -session.duration * config.devicePenalty;
+  }
 }
 
 function applyTone() {
@@ -121,10 +131,41 @@ function applyTone() {
   });
 }
 
-function getMessage() {
+//Old 
+  function getMessage() {
   const tone = userSettings.tone || config.defaultTone;
   const list = messages?.[tone] || ["..."];
   return list[Math.floor(Math.random() * list.length)];
+}
+
+function getStatusMessage(points) {
+  const level = calculateLevel(points);
+  let type = "status_low";
+  if (points >= 100) type = "status_mid";
+  if (points >= 300) type = "status_high";
+  return getStructuredMessage(type, {
+    points: points.toFixed(0),
+    level: level
+  });
+}
+
+//old
+function getProgressMessage() {
+  const goal = config.dailyGoal;
+  const current = getTodayMovement();
+  if (current >= goal) return "goal_completed";
+  if (current >= goal * 0.5) return "halfway";
+  return "start";
+}
+
+function getStructuredMessage(type, vars = {}) {
+  const tone = userSettings.tone || config.defaultTone;
+  let pool = messages?.[tone]?.[type] || ["..."];
+  let msg = pool[Math.floor(Math.random() * pool.length)];
+  Object.keys(vars).forEach(key => {
+    msg = msg.replace(`{${key}}`, vars[key]);
+  });
+  return msg;
 }
 
 function getBadges(points) {
@@ -154,6 +195,42 @@ function formatSmartDate(dateStr) {
   });
 }
 
+function calculateStreak() {
+  const days = [...new Set(sessions.map(s =>
+    new Date(s.date).toDateString()
+  ))].sort((a, b) => new Date(b) - new Date(a));
+  let streak = 0;
+  let current = new Date();
+  for (let day of days) {
+    const d = new Date(day);
+    if (d.toDateString() === current.toDateString()) {
+      streak++;
+      current.setDate(current.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+  return streak;
+}
+
+function calculateEmotionScore() {
+  let score = 0;
+  sessions.forEach(s => {
+    const emo = emotionsData.find(e => e.label === s.emotion);
+    if (emo) score += emo.weight;
+  });
+  return score;
+}
+
+function calculateLevel(points) {
+  return Math.floor(points / 100);
+}
+
+function getTodayMovement() {
+  return sessions
+    .filter(s => isToday(s.date) && s.type === "movement")
+    .reduce((sum, s) => sum + parseFloat(s.duration), 0);
+}
 
 // =========================
 // STATS
@@ -341,13 +418,26 @@ function updateUI() {
   let points = calculatePoints();
   pointsDisplay.textContent = points.toFixed(2) + " XP";
 
-  messageBox.textContent = getMessage();
+  const progressType = getProgressMessage();
+  const progressMsg = getStructuredMessage(progressType);
+
+  //messageBox.textContent = progressMsg;
+  messageBox.textContent = getStatusMessage(points);
+  //messageBox.textContent = getMessage();
 
   let stats = calculateStats();
+
+  const streak = calculateStreak();
+  const emotionScore = calculateEmotionScore();
+  const level = calculateLevel(points);
 
   moveTimeEl.textContent = stats.move.toFixed(2) +" min";
   deviceTimeEl.textContent = stats.device.toFixed(2) +" min";
   topEmotionEl.textContent = stats.topEmotion;
+
+  streakEl.textContent = streak + " 🔥";
+  emotionScoreEl.textContent = emotionScore;
+  levelEl.textContent = "Lv. " + level;
 
   badgeList.innerHTML = "";
   const badges = getBadges(points);
@@ -518,25 +608,31 @@ startBtn.addEventListener("click", () => {
 
 stopBtn.addEventListener("click", () => {
   if (!startTime) return;
-
   const durationSec = Math.floor((Date.now() - startTime) / 1000);
   const durationMin = (durationSec / 60).toFixed(2);
-
   const session = {
     type: typeSelect.value,
     category: categorySelect.value || "N/A",
-    duration: durationMin,
-    //emotion: emotionSelect.value,
-    date: new Date().toISOString(), 
-    emotion: null // ✅ parte senza emozione, si aggiunge dopo con il pulsante 
+    duration: parseFloat(durationMin),
+    date: new Date().toISOString(),
+    emotion: null
   };
+  const sessionPoints = calculateSessionPoints(session);
   sessions.push(session);
   localStorage.setItem("sessions", JSON.stringify(sessions));
   startTime = null;
-  stato.textContent = "Fermo";
   vibrate("medium");
+  const streak = calculateStreak();
+  const type = sessionPoints >= 0
+    ? "session_positive"
+    : "session_negative";
+  stato.textContent ="Fermo - " + getStructuredMessage(type, {
+    points: Math.abs(sessionPoints.toFixed(1)),
+    streak: streak
+  });
   updateUI();
 });
+
 
 /*
 let startX = 0;

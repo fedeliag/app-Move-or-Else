@@ -3,5 +3,6 @@
   "movementMultiplier": 1,
   "devicePenalty": 1,
   "tones": ["neutral", "ironic", "dark"],
-  "defaultTone": "neutral"
+  "defaultTone": "neutral",
+  "dailyGoal": 30
 }

@@ -1,14 +1,58 @@
 {
-  "neutral": [
-    "Ottimo lavoro 🤖",
-    "Continua così 🤖"
-  ],
-  "ironic": [
-    "Wow, ti sei mosso. Evento raro 🤡",
-    "Il divano è triste senza di te 🤡"
-  ],
-  "dark": [
-    "Se continui così, peggiorerà 😈",
-    "Ogni minuto perso viene registrato 😈"
-  ]
+  "neutral": {
+    "session_positive": [
+      "+{points} XP 💪 Streak: {streak}"
+    ],
+    "session_negative": [
+      "-{points} XP ⚠️ Streak: {streak}"
+    ],
+
+    "status_low": [
+      "Sei all'inizio (Lv.{level}) — {points} XP"
+    ],
+    "status_mid": [
+      "Stai andando bene (Lv.{level}) — {points} XP"
+    ],
+    "status_high": [
+      "Ottimo ritmo (Lv.{level}) — {points} XP"
+    ]
+  },
+
+  "ironic": {
+    "session_positive": [
+      "+{points} XP… sospetto 🤡 (streak {streak})"
+    ],
+    "session_negative": [
+      "-{points} XP. Orgoglioso? 🤡 (streak {streak})"
+    ],
+
+    "status_low": [
+      "Livello {level}… lento eh 🤡 ({points} XP)"
+    ],
+    "status_mid": [
+      "Ok, ti muovi ogni tanto 🤡 (Lv.{level})"
+    ],
+    "status_high": [
+      "Chi sei e cosa hai fatto di te 🤡 (Lv.{level})"
+    ]
+  },
+
+  "dark": {
+    "session_positive": [
+      "+{points} XP. Accettabile 😈 (streak {streak})"
+    ],
+    "session_negative": [
+      "-{points} XP. Peggiori 😈 (streak {streak})"
+    ],
+
+    "status_low": [
+      "Livello {level}. Ancora insufficiente 😈"
+    ],
+    "status_mid": [
+      "Stai migliorando… forse 😈 (Lv.{level})"
+    ],
+    "status_high": [
+      "Stai evitando il peggio 😈 (Lv.{level})"
+    ]
+  }
 }

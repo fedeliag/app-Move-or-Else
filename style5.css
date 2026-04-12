@@ -1,0 +1,316 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #2563eb;
+  --surface: white;
+  --text: #382222;
+  --text-soft: #604c4c;
+  --shadow: 0 6px 16px rgba(0,0,0,0.08);
+
+}
+
+/* BASE */
+body {
+  font-family: system-ui, sans-serif;
+  background: #f5f5f5;
+  font-size: 16px;  
+}
+
+/* APP CONTAINER */
+#app {
+  max-width: 500px; /* stile app */
+  margin: auto;
+  padding-bottom: 80px; /* spazio navbar */
+}
+
+/* SCREEN */
+
+.screen {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: all 0.3s ease;
+  padding: 16px;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* HEADER */
+.app-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+}
+
+.app-header p {
+  font-size: 1.2rem;
+  color: #2563eb;
+  font-weight: bold;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 16px;
+  margin: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* TITOLI */
+h1 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 20px;
+  margin: 25px 0 0 0;
+}
+
+h3 {
+  font-size: 16px;
+  margin: 8px 0 0 0;
+}
+
+/* SELECT */
+select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+/* BOTTONI */
+button {
+  font-size: 18px;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: #ddd;
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.buttons button {
+  flex: 1;
+  font-size: 22px;
+}
+
+#emotion {
+  display: none;
+}
+
+#startBtn {
+  background: #22c55e;
+  color: white;
+}
+
+#stopBtn {
+  background: #ef4444;
+  color: white;
+}
+
+/* TONE PICKER */
+.tone-picker {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 0;
+  gap: 10px;
+}
+
+.tone-picker button {
+  font-size: 24px;
+  border: 1px solid #595151;
+  background-color: var(--surface);
+  padding: 10px;
+  border-radius: 12px;
+  /* cursor: pointer; */
+  transition: all 0.2s ease;
+}
+.tone-label {
+  display: block;
+  font-size: 16px;
+}
+
+.tone-picker .active {
+  background-color: var(--primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.emoji-picker {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.emoji-picker span {
+  cursor: pointer;
+  font-size: 20px;
+  transition: transform 0.15s ease;
+}
+
+.emoji-picker span:hover {
+  transform: scale(1.3);
+}
+
+.emoji-selected {
+  font-size: 20px;
+}
+
+/* SESSION CARD */
+.session-card {
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.session-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.session-main {
+  margin-top: 6px;
+}
+
+.session-bottom {
+  margin-top: 8px;
+}
+
+/* STATUS */
+#stato {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+#message {
+  margin-top: 6px;
+  font-style: italic;
+}
+/* STAT GRID */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.stat-grid span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.stat-grid small {
+  display: block;
+  color: #666;
+}
+
+/* LIST */
+ul {
+  list-style: none;
+}
+
+li {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+/* CHARTS */
+.chart-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#legend {
+  font-size: 12px;
+}
+
+/* NAVBAR */
+
+.nav{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  background: white;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.nav-btn {
+  background: none;
+  opacity: 0.5;
+  border: 1px solid #595151;
+  font-size: 24px;
+  /*transition: all 0.2s ease;*/
+}
+
+.nav-label {
+  display: block;
+  font-size: 16px;
+}
+
+/* active */
+.nav-btn.active {
+  opacity: 1;
+  background-color: var(--primary);
+  color: white;  
+  /*transform: scale(1.1);*/
+}
+
+/* MODES */
+/* IRONIC MODE (collegato al tuo tone) */
+body.ironic {
+  background: #6d98c3;
+  color: darkblue;
+}
+
+body.ironic.card {
+  background: #d2dded;
+}
+
+/* DARK MODE (collegato al tuo tone) */
+body.dark {
+  background: #5a0c6f;
+  color: #a996e1;
+}
+
+body.dark.card {
+  background: #9c37b8;
+}
+
+
+
+/* RESPONSIVE EXTRA */
+@media (max-width: 400px) {
+  .app {
+    padding: 10px;
+  }
+}

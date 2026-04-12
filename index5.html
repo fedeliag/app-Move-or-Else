@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracker App</title>
+  <link rel="stylesheet" href="style5.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- SCREEN 1 -->
+  <section id="screen-home" class="screen active">
+    <h1>⚡ Move or Else</h1>
+    <h2>Pick Your Tone:</h2>
+    <div class="tone-picker">
+        <button data-tone="neutral">
+            <span class="tone-icon">🤖</span>
+            <span class="tone-label">Neutral</span>
+        </button>
+        <button data-tone="ironic">
+            <span class="tone-icon">🤡</span>
+            <span class="tone-label">Ironic</span>
+        </button>
+        <button data-tone="dark">
+            <span class="tone-icon">😈</span>
+            <span class="tone-label">Dark</span>
+        </button>
+    </div>
+
+    <h2 id="welcomeMessage"></h2>
+    
+    <h2 >Today date:</h2>
+      <h3 id="todayDate"></h3>
+
+    <h2>Score:</h2>
+      <div class="card">
+        <h3 id="points"></h3>
+        <p id="message"></p>  
+      </div>
+    <h2>Badge:</h2>
+      <div class="card">
+        <ul id="badgeList"></ul>
+      </div>
+  </section>
+
+
+  <!-- SCREEN 2 -->
+  <section id="screen-session" class="screen">
+    <h1>⚡ Move or Else</h1>
+    <h2>New Session:</h2>
+    <select id="type">
+        <option value="movement">Movimento</option>
+        <option value="device">Dispositivo</option>
+    </select>
+    <select id="category"></select>
+    <select id="emotion"></select>
+
+    <div class="buttons">
+      <button id="startBtn">▶</button>
+      <button id="stopBtn">■</button>
+    </div>
+
+    <p id="stato">Fermo</p>
+    <p id="message"></p>
+   
+<!-- BADGE -->
+  <h2>Last Badge:</h2>
+  <div class="card">
+        <p id="lastBadge"></p>
+  </div>
+ <!-- SESSIONS --> 
+  <h2>Sessions:</h2>
+  <div class="card">
+        <h2>Sessioni</h2>
+        <h3>Oggi</h3>
+        <ul id="todayList"></ul>
+
+        <h3>Storico</h3>
+        <div id="history"></div>
+            <ul id="sessionList"></ul>
+        </div>
+    </div>
+  </section>
+
+
+  <!-- SCREEN 3 -->
+<section id="screen-stats" class="screen">
+    <h1>⚡ Move or Else</h1>
+    <h2>Stats</h2>
+        <div class="stat-grid">
+            <div>
+                <span id="moveTime">0</span>
+                <small>Movimento</small>
+            </div>
+            <div>
+                <span id="deviceTime">0</span>
+                <small>Dispositivo</small>
+            </div>
+            <div>
+                <span id="topEmotion">-</span>
+                <small>Top Emozione</small>
+            </div>
+            <div>
+                <span id="streak">0</span>
+                <small>Streak</small>
+            </div>
+            <div>
+                <span id="emotionScore">0</span>
+                <small>Mind Score</small>
+            </div>
+            <div>
+                <span id="level">0</span>
+                <small>Level</small>
+            </div>
+        </div>
+
+ <!-- GRAFICO -->
+    <h2>Activity Over Time</h2>
+    <div class="card chart-container">
+        <canvas id="chart" width="200" height="200"></canvas>
+        <div id="legend"></div>
+    </div>
+  </section>
+
+
+  <!-- NAV BAR -->
+    <nav class="nav">
+        <button class="nav-btn active" data-screen="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-btn" data-screen="session">
+            <span class="nav-icon">➕</span>
+            <span class="nav-label">Session</span>
+        </button>
+
+        <button class="nav-btn" data-screen="stats">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Stats</span>
+        </button>
+    </nav>
+
+</div>
+
+<script src="app5.js"></script>
+</body>
+</html>
